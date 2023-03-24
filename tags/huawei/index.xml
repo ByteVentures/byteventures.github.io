@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Huawei on Byte Ventures</title>
+    <link>https://byteventures.github.io/tags/huawei/</link>
+    <description>Recent content in Huawei on Byte Ventures</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 Aug 2022 20:56:23 +0530</lastBuildDate><atom:link href="https://byteventures.github.io/tags/huawei/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unlocking Huawei B310s-927 &#43; OVPN</title>
+      <link>https://byteventures.github.io/blogs/huawei_b310s-927/</link>
+      <pubDate>Sun, 14 Aug 2022 20:56:23 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/huawei_b310s-927/</guid>
+      <description>What Does Unlocking Mean ? Here, unlocking means to get access to features that were locked (restricted) by the provider.In this case the provider is the ISP and not the manufacturer (Huawei).
+Why Is Unlocking Necessary ? The Huawei B310s-927 is a very famous router provided by ISPs for mobile networks. Meaning, you could use a SIM card to get data and have access to features found in traditional routers. However the ISP modifies the router to only accept their SIM cards and not others&amp;rsquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

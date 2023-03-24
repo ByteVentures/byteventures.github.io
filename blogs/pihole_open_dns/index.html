@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=/favicon.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XHTEZQZVWE"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XHTEZQZVWE', { 'anonymize_ip': false });
+}
+</script>
+
+<meta property="og:title" content="Pi-hole &#43; OpenDNS" />
+<meta property="og:description" content="Setting up Pi-hole and using Open DNS for a secure home network" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteventures.github.io/blogs/pihole_open_dns/" /><meta property="article:section" content="blogs" />
+<meta property="article:published_time" content="2022-09-08T19:00:01+05:30" />
+<meta property="article:modified_time" content="2022-09-08T19:00:01+05:30" /><meta property="og:site_name" content="A Tech Trek" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pi-hole &#43; OpenDNS"/>
+<meta name="twitter:description" content="Setting up Pi-hole and using Open DNS for a secure home network"/>
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+
+
+
+<style>
+    :root {
+        --text-color: #343a40;
+        --text-secondary-color: #6c757d;
+        --background-color: #eaedf0;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #007bff;
+        --secondary-color: #f8f9fa;
+
+         
+        --text-color-dark: #fcfcfc;
+        --text-secondary-color-dark: #F1E0AC;
+        --background-color-dark: #313552;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #F1E0AC;
+        --secondary-color-dark: #30475E;
+    }
+    body {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        width: .5em;
+        height: .5em;
+        background-color: var(--background-color);
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px var(--background-color);
+        border-radius: 1rem;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background-color: var(--secondary-color);
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+<meta name="description" content="Setting up Pi-hole and using Open DNS for a secure home network">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-5/all-5.15.4.js"></script>
+
+  <title>
+Pi-hole &#43; OpenDNS | Byte Ventures
+
+  </title>
+</head>
+
+<body class="light">
+  
+  
+<script>
+    let localStorageValue = localStorage.getItem("pref-theme");
+    let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    switch (localStorageValue) {
+        case "dark":
+            document.body.classList.add('dark');
+            break;
+        case "light":
+            document.body.classList.remove('dark');
+            break;
+        default:
+            if (mediaQuery) {
+                document.body.classList.add('dark');
+            }
+            break;
+    }
+</script>
+
+
+
+<header>
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="/favicon.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                A Tech Trek
+                
+            </a>
+
+            
+                <div>
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                        aria-label="Search" oninput="searchOnChange(event)">
+                </div>
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+                        <li class="nav-item navbar-text d-block d-md-none">
+                            <div class="nav-link">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                            </div>
+                        </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Experience
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#achievements"
+                            aria-label="achievements">
+                            Certifications
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        
+                        <div class="text-center">
+                            <button id="theme-toggle">
+                                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                </svg>
+                                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Pi-hole &#43; OpenDNS</h1>
+            <div class="text-center">
+              Mahir 
+              <small>|</small>
+              Sep 8, 2022
+
+              
+              <span id="readingTime">
+                min read
+              </span>
+              
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid" src="/posts/pihole_open_dns/pihole.jpg" alt="Pi-hole &#43; OpenDNS">
+          </div>
+          
+          <article class="page-content  p-2">
+          <h2 id="what-is-pi-hole--and-its-uses">What is Pi-hole ? And It&rsquo;s Uses</h2>
+<p>In simple terms, Pi hole is an application that can be installed on linux that acts as a custom DNS server. It can be used to block advertisements and unwanted websites while browsing through the internet. Pi-hole can do a lot more than just this. If needed it can also act as a DHCP server for your network and much more.</p>
+<hr>
+<h2 id="how-does-it-work-">How Does It Work ?</h2>
+<p>Pi-hole basically acts like a filter between your router and the vast internet. Before your router brings back your quries (such as search results) from the internet, It first goes through Pi-Hole to remove unwanted results such as advertisements or malicious websites, spammy links and so on.</p>
+<p>It can also be used to cache visited sites. So the next time you visit the site it loads faster.</p>
+<hr>
+<h2 id="pi-hole-installation">Pi-hole Installation</h2>
+<p><strong>Before installing make sure your server has a Static IP or is not a part of the DHCP list of IPs.</strong></p>
+<p>The installation is pretty simple and straight forward. You can also visit Pi-hole&rsquo;s <a href="https://github.com/pi-hole/pi-hole/#one-step-automated-install">official github page</a> for referernce.</p>
+<ul>
+<li>To install you just need to run the following command</li>
+</ul>
+<pre tabindex="0"><code>sudo curl -sSL https://install.pi-hole.net | bash
+</code></pre><p>Follow the on-screen instructions and select the options using arrow keys and enter according to your needs.</p>
+<h3 id="custom-installation">Custom Installation</h3>
+<ul>
+<li>Select any DNS provider you want. It can be changed later.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>Leave the default adlist. You can add more adlists later.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>Let Pi-hole block ads over both IPv4 and Ipv6.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>Install the Web Server as it is the most convenient way to access Pi-Hole</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>You can log queries if you want and for convenience you can select <strong>show all</strong> if its only you who will be monitoring the network.</li>
+</ul>
+<h3 id="change-the-password">Change The Password</h3>
+<p>After intall, Pi-hole will give you a pre-defined password. However it isn&rsquo;t really easy to remember.</p>
+<p>You can change the password  by typing the command on the terminal.</p>
+<pre tabindex="0"><code>sudo pihole -a -p
+</code></pre><h3 id="change-the-default-port">Change The Default Port</h3>
+<ul>
+<li>By default, Pi-Hole&rsquo;s web interface runs on port <code>80</code>. This is fine for most people but port <code>80</code> is widely used and it may even be in use if you have many services. So its best to change it to some other port.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>You can change the port by typing the following command</li>
+</ul>
+<pre tabindex="0"><code>sudo nano /etc/lighttpd/external.conf
+</code></pre><p>&nbsp;</p>
+<ul>
+<li>Add the following to the conf file : <code>server.port := 8085</code>, save and exit out of the file.(You can change the port number accordingly)</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>Finally, type <code>sudo systemctl restart lighttpd</code> for your changes to take place.</li>
+</ul>
+<h3 id="change-dns-servers-on-your-router">Change DNS Servers On Your Router</h3>
+<p>Once Pi-Hole is up and running you can point the Primary DNS server IP (in your router) to your server so that all the traffic goes through Pi-Hole.</p>
+<p><strong>It is advisable to leave the Secondary DNS server IP to something like <code>1.1.1.1</code> or <code>8.8.8.8</code> (your choice) incase your server shuts down.</strong></p>
+<hr>
+<h2 id="adding-adlists">Adding Adlists</h2>
+<p>By default, Pi-hole comes with an adlists with a bunch of URLs. However, you can add more by heading over to Group Management, Adlists.</p>
+<p><strong>Keep in mind not to add too many adlists as it can slow down the performance. Some adlists may contain URLs of sites that already exist in your installed adlists. So find a good balance between privacy and usability.</strong></p>
+<h3 id="adlist-sources">Adlist Sources</h3>
+<ul>
+<li><a href="https://firebog.net/">The Firebog</a>. It has a ton of adlists in various categories like <strong>advertisements</strong>, <strong>malware</strong> etc.</li>
+<li>NSFW Adlists:
+<ul>
+<li><code>https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/porn/hosts</code></li>
+<li><code>https://raw.- githubusercontent.com/cbuijs/shallalist/master/porn/domains</code></li>
+</ul>
+</li>
+<li>Adaway Default BLocklist : <code>https://adaway.org/hosts.txt</code></li>
+<li><a href="https://github.com/blocklistproject/Lists">Block List Project</a>. It has a lot of adlists in various categories.</li>
+</ul>
+<h3 id="white-list-and-black-list">White List And Black List</h3>
+<p>It is <strong>Important</strong> that you monitor your network through the query log for a couple days and make sure everything works properly (chances are, it won&rsquo;t).</p>
+<p>If you find a link that is causing issues by being blocked, then allow it by whitelistsing it.</p>
+<p>Similarly, if you come accross links that are shady and are not being blocked by Pi-Hole then blacklist them.</p>
+<p>A general rule of thumb if you run services like Pi-hole is to always check your query log if something doesn&rsquo;t load properly or isn&rsquo;t behaving the way it should generally. Chances are that it maybe due to Pi-hole (adlists).</p>
+<hr>
+<h2 id="pi-hole-analysis">Pi-hole Analysis</h2>
+<p><img src="/posts/pihole_open_dns/my_pihole.png" alt="Pi-hole Analysis"></p>
+<p>The above image shows the statistics of my Pi-hole instance that&rsquo;s been running for nearly a year. (changes made now and then).</p>
+<p>Trying to find the balance between the total queries blocked and total queries is essential to know if your Pi-hole is performing efficiently. The average <strong>Percentage Blocked</strong> on a daily basis for my network is around <strong>65 %</strong> which is a healthy number. If the percentage is too less then you&rsquo;ve got too many adlists that aren&rsquo;t working as intended.</p>
+<ul>
+<li>It is important to keep monitoring your network from time to time to see if things are performing as they should or if they need tweaking. You may need to update adlists once in a while.</li>
+</ul>
+<hr>
+<h2 id="pi-hole-alone-is-not-the-answer-">Pi-hole Alone Is Not The Answer !</h2>
+<p><strong>If you think that you can block all the ads on all platforms, block all the malicious websites, all the spam links then you my friend are wrong !</strong></p>
+<p>Pi-hole is great for blocking everything mentioned so far but only to a point. It isn&rsquo;t perfect and It&rsquo;s hard for us to keep track of all the new advertisemnt, malware, spam links that are created every single day.</p>
+<p>It goes a long way if you use pihole along with apllications that go hand in hand like Brave Browser for instance. Provided brave does a pretty good job even without Pi-hole when it comes to blocking ads but that was just one example.</p>
+<h2 id="we-can-take-thing-up-a-notch-by-using-opendns-and-configuring-it-to-our-needs-"><strong>We can take thing up a notch by using OpenDNS and configuring it to our needs !</strong></h2>
+<h2 id="setting-up-open-dns">Setting Up Open DNS</h2>
+<ul>
+<li>Go to the <strong>Settings</strong> tab on your Pi-hole dashboard, then the <strong>DNS</strong> tab and select OpenDNS as your Upstream Servers.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>In order to get Open DNS properly configured, you need an account. To get the account head over to <a href="https://www.opendns.com/home-internet-security/">OpenDNS&rsquo; Consumer Page</a> and select the <strong>OpenDNS Home</strong> option and sign up.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>Now here&rsquo;s a little tricky part. You need to know if you have a Static IP or a Dynamic IP. If you have a Static IP then you can skip over to Configuration part. But if you have a Dynamic IP (like me) then you need to perform a few more steps.</li>
+</ul>
+<h3 id="opendns-dynamic-ip">OpenDNS Dynamic IP</h3>
+<p>As your IP changes from time to time, you need a way to keep the OpenDNS server updated with your IP. You can do this by using an IP updater called ddclient which you can run on your server.</p>
+<ul>
+<li>Install the client :</li>
+</ul>
+<pre tabindex="0"><code>sudo apt install ddclient
+</code></pre><ul>
+<li>Configure the client:</li>
+</ul>
+<pre tabindex="0"><code>sudo nano /etc/ddclient.conf
+</code></pre><ul>
+<li>Edit the info accordingly:</li>
+</ul>
+<pre tabindex="0"><code>ssl = yes
+use = web, web = whatismyip.org
+server = updates.opendns.com
+protocol = dyndns2
+login = username in OpenDNS                  
+password = &#39;key OpenDNS&#39;                     
+(Name of the network you set up in OpenDNS)
+</code></pre><ul>
+<li>Run the command to see if everything works:</li>
+</ul>
+<pre tabindex="0"><code>sudo ddclient -verbose -file /etc/ddclient.conf
+</code></pre><ul>
+<li>Run these commands to make ddclient automatically start after your server reboots:</li>
+</ul>
+<pre tabindex="0"><code>sudo systemctl start ddclient
+</code></pre><pre tabindex="0"><code>sudo systemctl enable ddclient
+</code></pre><ul>
+<li>That should be it for getting the ddclient up and running.</li>
+</ul>
+<h3 id="configure-opendns">Configure OpenDNS</h3>
+<p>The main configuration that you need to do is at the setting of your dashboard. Once you select your network you can customise your <strong>Web Content Flitering</strong>.</p>
+<p><img src="/posts/pihole_open_dns/web_content_filtering.png" alt="web_content_filtering"></p>
+<p>In the Security tab, I recommend having <strong>Malware/Bot Protection</strong>, <strong>Phishing Protection</strong> turned on.</p>
+<p>You can edit the &lsquo;block page&rsquo; to your liking in the Customization tab.</p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>By combining both Pi-hole and OpenDNS and other adblocking measures you could create a very secure, reliable network that&rsquo;ll keep you and anyone in your network safe from the dark sides of the internet (to a certain degree ofcourse !).</p>
+<hr>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-pi-hole--and-its-uses">What is Pi-hole ? And It&rsquo;s Uses</a></li>
+    <li><a href="#how-does-it-work-">How Does It Work ?</a></li>
+    <li><a href="#pi-hole-installation">Pi-hole Installation</a>
+      <ul>
+        <li><a href="#custom-installation">Custom Installation</a></li>
+        <li><a href="#change-the-password">Change The Password</a></li>
+        <li><a href="#change-the-default-port">Change The Default Port</a></li>
+        <li><a href="#change-dns-servers-on-your-router">Change DNS Servers On Your Router</a></li>
+      </ul>
+    </li>
+    <li><a href="#adding-adlists">Adding Adlists</a>
+      <ul>
+        <li><a href="#adlist-sources">Adlist Sources</a></li>
+        <li><a href="#white-list-and-black-list">White List And Black List</a></li>
+      </ul>
+    </li>
+    <li><a href="#pi-hole-analysis">Pi-hole Analysis</a></li>
+    <li><a href="#pi-hole-alone-is-not-the-answer-">Pi-hole Alone Is Not The Answer !</a></li>
+    <li><a href="#we-can-take-thing-up-a-notch-by-using-opendns-and-configuring-it-to-our-needs-"><strong>We can take thing up a notch by using OpenDNS and configuring it to our needs !</strong></a></li>
+    <li><a href="#setting-up-open-dns">Setting Up Open DNS</a>
+      <ul>
+        <li><a href="#opendns-dynamic-ip">OpenDNS Dynamic IP</a></li>
+        <li><a href="#configure-opendns">Configure OpenDNS</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/home-server" target="_blank">Home Server</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/raspberry-pi" target="_blank">Raspberry Pi</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/network" target="_blank">Network</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/ubuntu-server" target="_blank">Ubuntu Server</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/pi-hole" target="_blank">Pi-hole</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/opendns" target="_blank">OpenDNS</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/dns" target="_blank">DNS</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/security" target="_blank">Security</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Pi-hole%20%2b%20OpenDNS&url=https%3a%2f%2fbyteventures.github.io%2fblogs%2fpihole_open_dns%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Pi-hole%20%2b%20OpenDNS: https%3a%2f%2fbyteventures.github.io%2fblogs%2fpihole_open_dns%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href='mailto:?subject=Pi-hole%20%2b%20OpenDNS&amp;body=Check%20out%20this%20site https%3a%2f%2fbyteventures.github.io%2fblogs%2fpihole_open_dns%2f'>
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+
+<div class="progress">
+  <div id="scroll-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<Script src="/js/scrollProgressBar.js"></script>
+
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+
+
+<script src="/js/readingTime.js"></script>
+
+
+
+  </div><footer>
+    <div class="container py-3" id="recent-posts">
+    
+    
+    
+    
+    <div class="h3 text-center text-secondary py-3">
+        Recent Posts
+    </div>
+    <div class="row justify-content-center">
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/mi3c_padavan/">
+                        <img src="/posts/mi3c_padavan/3c.webp" class="card-img-top" alt="Padavan Firmware for Mi 3C Router">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/mi3c_padavan/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Padavan Firmware for Mi 3C Router">Padavan Firmware for Mi …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>What is Padavan ? Padavan firmware is a custom firmware for wireless routers. It is based on the open-source firmware of Asuswrt, which is the firmware developed by Asus for their routers. Padavan firmware is compatible with a wide range of routers and provides many advanced features, such as …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jan 16, 2023</span>
+                    <a href="/blogs/mi3c_padavan/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/zerotier/">
+                        <img src="/posts/zerotier/zerotierimg.jpg" class="card-img-top" alt="Zerotier - Bypass CG-NAT">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/zerotier/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Zerotier - Bypass CG-NAT">Zerotier - Bypass CG-NAT</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Zerotier: The Ultimate Solution for Bypassing CG-NAT Are you tired of dealing with the hassle of Carrier-Grade Network Address Translation (CG-NAT)? Look no further than Zerotier!
+What is Zerotier? Zerotier is a software-based network overlay that allows you to connect devices, services, and apps …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jan 14, 2023</span>
+                    <a href="/blogs/zerotier/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/ad_free_life/">
+                        <img src="/posts/adfreelife/noads.jpg" class="card-img-top" alt="Live an Ad-Free Internet Life">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/ad_free_life/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Live an Ad-Free Internet Life">Live an Ad-Free Internet …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Internet Ads: Now And Then It should come at no surprise to everyone that advertisements on the internet are getting pretty ridiculous these days. They are getting out of hand. You don&rsquo;t just see ads while browsing the internet, through web pages but also in almost every single app that …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Oct 2, 2022</span>
+                    <a href="/blogs/ad_free_life/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div><div class="text-center pt-2">
+    
+
+    
+
+    
+
+    
+    <a href="https://www.instagram.com/mahir_m01/" aria-label="instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+            <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899"
+                gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#fd5" />
+                <stop offset=".328" stop-color="#ff543f" />
+                <stop offset=".348" stop-color="#fc5245" />
+                <stop offset=".504" stop-color="#e64771" />
+                <stop offset=".643" stop-color="#d53e91" />
+                <stop offset=".761" stop-color="#cc39a4" />
+                <stop offset=".841" stop-color="#c837ab" />
+            </radialGradient>
+            <path fill="url(#yOrnnhliCrdS2gy~4tD8ma)"
+                d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+            <radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813"
+                gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#4168c9" />
+                <stop offset=".999" stop-color="#4168c9" stop-opacity="0" />
+            </radialGradient>
+            <path fill="url(#yOrnnhliCrdS2gy~4tD8mb)"
+                d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+            <path fill="#fff"
+                d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z" />
+            <circle cx="31.5" cy="16.5" r="1.5" fill="#fff" />
+            <path fill="#fff"
+                d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z" />
+        </svg>
+    </a>
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="pb-2">
+                <a href="https://byteventures.github.io/" title="Byte Ventures">
+                    <img alt="Footer logo" src="/favicon.png"
+                        height="40px" width="40px">
+                </a>
+            </div>
+            &copy; 2023  All rights reserved
+        </div>
+    </div>
+</div></footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+</script>
+
+
+    <script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

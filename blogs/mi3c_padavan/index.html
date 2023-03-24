@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=/favicon.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XHTEZQZVWE"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XHTEZQZVWE', { 'anonymize_ip': false });
+}
+</script>
+
+<meta property="og:title" content="Padavan Firmware for Mi 3C Router" />
+<meta property="og:description" content="A complete guide on installing Padavan firmaware (or any custom firmware) on your Mi 3C Router." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteventures.github.io/blogs/mi3c_padavan/" /><meta property="article:section" content="blogs" />
+<meta property="article:published_time" content="2023-01-16T07:54:32+05:30" />
+<meta property="article:modified_time" content="2023-01-16T07:54:32+05:30" /><meta property="og:site_name" content="A Tech Trek" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Padavan Firmware for Mi 3C Router"/>
+<meta name="twitter:description" content="A complete guide on installing Padavan firmaware (or any custom firmware) on your Mi 3C Router."/>
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+
+
+
+<style>
+    :root {
+        --text-color: #343a40;
+        --text-secondary-color: #6c757d;
+        --background-color: #eaedf0;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #007bff;
+        --secondary-color: #f8f9fa;
+
+         
+        --text-color-dark: #fcfcfc;
+        --text-secondary-color-dark: #F1E0AC;
+        --background-color-dark: #313552;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #F1E0AC;
+        --secondary-color-dark: #30475E;
+    }
+    body {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        width: .5em;
+        height: .5em;
+        background-color: var(--background-color);
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px var(--background-color);
+        border-radius: 1rem;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background-color: var(--secondary-color);
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+<meta name="description" content="A complete guide on installing Padavan firmaware (or any custom firmware) on your Mi 3C Router.">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-5/all-5.15.4.js"></script>
+
+  <title>
+Padavan Firmware for Mi 3C Router | Byte Ventures
+
+  </title>
+</head>
+
+<body class="light">
+  
+  
+<script>
+    let localStorageValue = localStorage.getItem("pref-theme");
+    let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    switch (localStorageValue) {
+        case "dark":
+            document.body.classList.add('dark');
+            break;
+        case "light":
+            document.body.classList.remove('dark');
+            break;
+        default:
+            if (mediaQuery) {
+                document.body.classList.add('dark');
+            }
+            break;
+    }
+</script>
+
+
+
+<header>
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="/favicon.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                A Tech Trek
+                
+            </a>
+
+            
+                <div>
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                        aria-label="Search" oninput="searchOnChange(event)">
+                </div>
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+                        <li class="nav-item navbar-text d-block d-md-none">
+                            <div class="nav-link">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                            </div>
+                        </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Experience
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#achievements"
+                            aria-label="achievements">
+                            Certifications
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        
+                        <div class="text-center">
+                            <button id="theme-toggle">
+                                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                </svg>
+                                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Padavan Firmware for Mi 3C Router</h1>
+            <div class="text-center">
+              Mahir 
+              <small>|</small>
+              Jan 16, 2023
+
+              
+              <span id="readingTime">
+                min read
+              </span>
+              
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid" src="/posts/mi3c_padavan/3c.webp" alt="Padavan Firmware for Mi 3C Router">
+          </div>
+          
+          <article class="page-content  p-2">
+          <h1 id="what-is-padavan-">What is Padavan ?</h1>
+<p>Padavan firmware is a custom firmware for wireless routers. It is based on the open-source firmware of Asuswrt, which is the firmware developed by Asus for their routers. Padavan firmware is compatible with a wide range of routers and provides many advanced features, such as support for various VPN protocols, advanced QoS controls, and support for custom scripts and plugins.</p>
+<p>It also aims to improve the performance and security of the routers. It is a third-party firmware and is not officially supported by the router&rsquo;s manufacturer.</p>
+<ul>
+<li>The firmware is developed by a Chinese developer and is offered as a free and open-source software.</li>
+</ul>
+<hr>
+<h1 id="custom-firmwares-for-mi-3c-router">Custom Firmwares for Mi 3C Router:</h1>
+<p>The Xiaomi Mi 3C router is a popular router that is known for its low cost and high performance. There are several custom firmware options available for the Mi 3C router. Some popular options include:</p>
+<h2 id="padavan-firmware">Padavan firmware</h2>
+<p>As I mentioned earlier, Padavan firmware is a custom firmware that is based on the open-source firmware of Asuswrt. It offers many advanced features and is compatible with a wide range of routers, including the Mi 3C.</p>
+<h2 id="openwrt-firmware">OpenWRT firmware</h2>
+<p>OpenWRT is an open-source firmware that is designed for embedded devices such as routers. It offers a wide range of features and is highly customizable. There are several versions of OpenWRT firmware available for the Mi 3C router.</p>
+<h2 id="dd-wrt-firmware">DD-WRT firmware</h2>
+<p>DD-WRT is another open-source firmware that is designed for wireless routers. It offers a wide range of features and is highly customizable. There are several versions of DD-WRT firmware available for the Mi 3C router.</p>
+<h2 id="x-wrt-firmware">X-WRT firmware</h2>
+<p>This is an open-source firmware that is based on OpenWRT, it provides more features and options than the original firmware, but it&rsquo;s not as popular as the others.</p>
+<hr>
+<h1 id="why-padavan-and-not-others-">Why Padavan and not others ?</h1>
+<p>There is nothing stopping you from installing other custom firmwares; however, from my testing, OpenWRT has a couple of bugs, and some features that you&rsquo;d expect to work right out of the box don&rsquo;t. Thus far, Padavan is the only firmware that has all the features that you&rsquo;d expect, and they work seamlessly.</p>
+<h1 id="installation-guide">Installation Guide:</h1>
+<p>Here&rsquo;s the reference guide on <a href="https://github.com/hanwckf/rt-n56u/issues/528">Github</a>.</p>
+<p>The guide will take you through, step by step on how to get any custom firmware up and running on your router initially. Later on in, the guide will be more specific to the Padavan Firmware.</p>
+<p>It is worth mentioning that this guide can also be used for other routers as well. However, only as a reference.</p>
+<p><strong>DISCLAIMER</strong>: By installing a custom firmware, you will <strong>VOID</strong> any warranty associated with the device. As this is not an official guide and things can go wrong, I advise you to be wary of the steps, and I&rsquo;m not responsible for any damages or Bricks.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Have a wired connection to the router from your PC. Assign the Ethernet port a static IP such as 192.168.31.2.</p>
+<p><strong>Please Remember</strong> that you may need to change the static IP frequently as you proceed with the installation.</p>
+<p>You may also need internet access for reference. (If you have a Wi-Fi card, it may be helpful)</p>
+<p>Some <strong>basic Networking</strong> knowledge. Although the guide will give you all the information you need, it helps to know what you are doing.</p>
+<p>A Linux machine. Don&rsquo;t worry I&rsquo;ll show you a method that doesn&rsquo;t require VMs.</p>
+<h2 id="setting-up-linux">Setting Up linux</h2>
+<p>You don&rsquo;t need a VM to run Linux. You can install it using WSL. If you haven&rsquo;t heard about it, WSL stands for Windows Subsystem for Linux. It is a feature in Windows 10 or higher that allows users to run Linux command-line tools and utilities natively on Windows. This means that users can use Linux commands and utilities, such as Bash, directly in the Windows Command Prompt or PowerShell, without the need for a virtual machine or dual-booting.</p>
+<p><strong>Do note that you need Windows 10 2004 or higher for this to work</strong></p>
+<p>You can check the <a href="https://learn.microsoft.com/en-us/windows/wsl/install">official documentation</a> for a better understanding.</p>
+<p>You also need to <strong>enable virtualization</strong> in your BIOS.</p>
+<p>Once you have enabled virtualization, open a terminal or command prompt window with <strong>Administrator Privileges</strong> and type the following command:</p>
+<pre tabindex="0"><code>wsl --install
+</code></pre><p>Reboot your PC as the prompt says and after reboot it&rsquo;ll continue installation. Proceed with the usual installation stuff, setting up username and password and so on.</p>
+<p>Once <strong>Ubuntu</strong> is up and running we can proceed further.</p>
+<h2 id="gaining-telnet-access">Gaining Telnet Access</h2>
+<p>For this step, I recommend following this <a href="https://www.youtube.com/watch?v=VxzEvdDWU_s">video</a></p>
+<p>You may need to install Telnet tools on your Linux instance, just bear that in mind.</p>
+<h2 id="installing-breed-bootloader">Installing Breed Bootloader</h2>
+<p>Once you have Telnet access, you need to transfer the bootloader file into the /tmp directory of the router.</p>
+<p>You can do this via Filezilla or any application of your choice.</p>
+<ul>
+<li>Username: root</li>
+<li>Password: root</li>
+<li>Port: 21</li>
+</ul>
+<p>Once the file is transferred, open a terminal or cmd.
+Login via telnet using:</p>
+<pre tabindex="0"><code>telent 192.168.31.1
+</code></pre><p>Leave the password blank and hit enter.</p>
+<p>Once you have logged in, type in the following command to install BREED:</p>
+<pre tabindex="0"><code>mtd -e Bootloader -r write /tmp/breed-mt7688-reset38.bin Bootloader
+</code></pre><p>Wait for the installation to take place. Do not unplug your router. Wait for a couple of minutes to make sure the nstallation completes.</p>
+<p>You can enter via breed by heading over to</p>
+<pre tabindex="0"><code>192.168.1.1
+</code></pre><p>Do note that if you have assigned your PC a static IP, then you need to change it accordingly. Set your Pc&rsquo;s IP address to</p>
+<pre tabindex="0"><code>192.168.1.100
+</code></pre><h2 id="installing-a-firmware-from-breed">Installing a Firmware from Breed</h2>
+<p>It is recommended that you reset Breed to its default settings before you install any firmware:</p>
+<p>Yes, it is in chinese. Surprise - Surprise ! You can use Google Translate to translate it into English, but I recommend doing it via a smartphone and Google Lens for convenience.</p>
+<p>Use the image below for reference (Credit: @yuos-bit from Github):</p>
+<p><img src="/posts/mi3c_padavan/BREED.png" alt="Breed"></p>
+<p>To install a fimrware, head over to the second menu (on the left-hand lis of menus) and click on the option in the middle (in between Bootloader and EEPROM but <strong>Do NOT</strong> select Bootloader and EEPROM).</p>
+<p>Upload your firmware file and install. You should be good to go.</p>
+<h2 id="installing-padavan-firmware">Installing Padavan Firmware</h2>
+<p>From here on out the guide becomes specfic to Padvan Fimrware.</p>
+<p>You can compile your own Padavan Firmware if you like, but I won&rsquo;t be diving into that as we already have a pre-compiled firmware to work with. Firmware: <a href="https://github.com/hanwckf/rt-n56u/files/5753885/MI-3C_3.4.3.9-099.trx.tar.gz">MI-3C_3.4.3.9-099.trx.tar.gz</a> (I did not create these files. The credit goes to the respective owners/creators.)</p>
+<p>You do need to extract the firmware. You can extract it using your linux instance. I&rsquo;ll be using Ubuntu that we installed earlier using wsl.</p>
+<p>Paste the file into a working directory of Ubuntu. If you are using  Windows 11, Linux should appear in the file explorer, and you can navigate to the directory.</p>
+<p>If you are using Windows 10, then enter</p>
+<pre tabindex="0"><code>\\wsl$\
+</code></pre><p>In the file explorer address bar.</p>
+<p>You can the extract the file by using the following command.</p>
+<pre tabindex="0"><code>tar -xf MI-3C_3.4.3.9-099.trx.tar.gz
+</code></pre><p>After extracting, upload the .tar firmware file to Breed as stated before and proceed with the installation.</p>
+<p>If you can access the login page at -</p>
+<pre tabindex="0"><code>192.168.2.1
+</code></pre><p>(assuming that you have either set a static IP in the subnet or set to automatic IP) then you have successfully installed padavan.</p>
+<p>The default username and password is admin and admin respectively. You should be able to log in into your router.</p>
+<h2 id="changing-language-in-padavan-firmware">Changing language in Padavan Firmware.</h2>
+<p>By default, everything is in chinese.</p>
+<p>You can change the language by heading over to the administration menu (5th menu from the wrench icon), System (First menu) and then scrolling all the way down to the last menu and selecting English from the drop-down.</p>
+<p><img src="/posts/mi3c_padavan/padavan.png" alt="padavan"></p>
+<hr>
+<h1 id="conclusion">Conclusion</h1>
+<p>If you have made it so far then congratulations. You now have a powerful custom firmware to meet all your networking needs on a simple home router !</p>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#padavan-firmware">Padavan firmware</a></li>
+    <li><a href="#openwrt-firmware">OpenWRT firmware</a></li>
+    <li><a href="#dd-wrt-firmware">DD-WRT firmware</a></li>
+    <li><a href="#x-wrt-firmware">X-WRT firmware</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#setting-up-linux">Setting Up linux</a></li>
+    <li><a href="#gaining-telnet-access">Gaining Telnet Access</a></li>
+    <li><a href="#installing-breed-bootloader">Installing Breed Bootloader</a></li>
+    <li><a href="#installing-a-firmware-from-breed">Installing a Firmware from Breed</a></li>
+    <li><a href="#installing-padavan-firmware">Installing Padavan Firmware</a></li>
+    <li><a href="#changing-language-in-padavan-firmware">Changing language in Padavan Firmware.</a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/router" target="_blank">Router</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/unlocking" target="_blank">Unlocking</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/firmware" target="_blank">Firmware</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Padavan%20Firmware%20for%20Mi%203C%20Router&url=https%3a%2f%2fbyteventures.github.io%2fblogs%2fmi3c_padavan%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Padavan%20Firmware%20for%20Mi%203C%20Router: https%3a%2f%2fbyteventures.github.io%2fblogs%2fmi3c_padavan%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href='mailto:?subject=Padavan%20Firmware%20for%20Mi%203C%20Router&amp;body=Check%20out%20this%20site https%3a%2f%2fbyteventures.github.io%2fblogs%2fmi3c_padavan%2f'>
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+
+<div class="progress">
+  <div id="scroll-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<Script src="/js/scrollProgressBar.js"></script>
+
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+
+
+<script src="/js/readingTime.js"></script>
+
+
+
+  </div><footer>
+    <div class="container py-3" id="recent-posts">
+    
+    
+    
+    
+    <div class="h3 text-center text-secondary py-3">
+        Recent Posts
+    </div>
+    <div class="row justify-content-center">
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/mi3c_padavan/">
+                        <img src="/posts/mi3c_padavan/3c.webp" class="card-img-top" alt="Padavan Firmware for Mi 3C Router">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/mi3c_padavan/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Padavan Firmware for Mi 3C Router">Padavan Firmware for Mi …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>What is Padavan ? Padavan firmware is a custom firmware for wireless routers. It is based on the open-source firmware of Asuswrt, which is the firmware developed by Asus for their routers. Padavan firmware is compatible with a wide range of routers and provides many advanced features, such as …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jan 16, 2023</span>
+                    <a href="/blogs/mi3c_padavan/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/zerotier/">
+                        <img src="/posts/zerotier/zerotierimg.jpg" class="card-img-top" alt="Zerotier - Bypass CG-NAT">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/zerotier/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Zerotier - Bypass CG-NAT">Zerotier - Bypass CG-NAT</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Zerotier: The Ultimate Solution for Bypassing CG-NAT Are you tired of dealing with the hassle of Carrier-Grade Network Address Translation (CG-NAT)? Look no further than Zerotier!
+What is Zerotier? Zerotier is a software-based network overlay that allows you to connect devices, services, and apps …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jan 14, 2023</span>
+                    <a href="/blogs/zerotier/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/ad_free_life/">
+                        <img src="/posts/adfreelife/noads.jpg" class="card-img-top" alt="Live an Ad-Free Internet Life">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/ad_free_life/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Live an Ad-Free Internet Life">Live an Ad-Free Internet …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Internet Ads: Now And Then It should come at no surprise to everyone that advertisements on the internet are getting pretty ridiculous these days. They are getting out of hand. You don&rsquo;t just see ads while browsing the internet, through web pages but also in almost every single app that …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Oct 2, 2022</span>
+                    <a href="/blogs/ad_free_life/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div><div class="text-center pt-2">
+    
+
+    
+
+    
+
+    
+    <a href="https://www.instagram.com/mahir_m01/" aria-label="instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+            <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899"
+                gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#fd5" />
+                <stop offset=".328" stop-color="#ff543f" />
+                <stop offset=".348" stop-color="#fc5245" />
+                <stop offset=".504" stop-color="#e64771" />
+                <stop offset=".643" stop-color="#d53e91" />
+                <stop offset=".761" stop-color="#cc39a4" />
+                <stop offset=".841" stop-color="#c837ab" />
+            </radialGradient>
+            <path fill="url(#yOrnnhliCrdS2gy~4tD8ma)"
+                d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+            <radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813"
+                gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#4168c9" />
+                <stop offset=".999" stop-color="#4168c9" stop-opacity="0" />
+            </radialGradient>
+            <path fill="url(#yOrnnhliCrdS2gy~4tD8mb)"
+                d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+            <path fill="#fff"
+                d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z" />
+            <circle cx="31.5" cy="16.5" r="1.5" fill="#fff" />
+            <path fill="#fff"
+                d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z" />
+        </svg>
+    </a>
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="pb-2">
+                <a href="https://byteventures.github.io/" title="Byte Ventures">
+                    <img alt="Footer logo" src="/favicon.png"
+                        height="40px" width="40px">
+                </a>
+            </div>
+            &copy; 2023  All rights reserved
+        </div>
+    </div>
+</div></footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+</script>
+
+
+    <script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

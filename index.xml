@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Byte Ventures</title>
+    <link>https://byteventures.github.io/</link>
+    <description>Recent content on Byte Ventures</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 16 Jan 2023 07:54:32 +0530</lastBuildDate><atom:link href="https://byteventures.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Padavan Firmware for Mi 3C Router</title>
+      <link>https://byteventures.github.io/blogs/mi3c_padavan/</link>
+      <pubDate>Mon, 16 Jan 2023 07:54:32 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/mi3c_padavan/</guid>
+      <description>What is Padavan ? Padavan firmware is a custom firmware for wireless routers. It is based on the open-source firmware of Asuswrt, which is the firmware developed by Asus for their routers. Padavan firmware is compatible with a wide range of routers and provides many advanced features, such as support for various VPN protocols, advanced QoS controls, and support for custom scripts and plugins.
+It also aims to improve the performance and security of the routers.</description>
+    </item>
+    
+    <item>
+      <title>Zerotier - Bypass CG-NAT</title>
+      <link>https://byteventures.github.io/blogs/zerotier/</link>
+      <pubDate>Sat, 14 Jan 2023 06:36:49 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/zerotier/</guid>
+      <description>Zerotier: The Ultimate Solution for Bypassing CG-NAT Are you tired of dealing with the hassle of Carrier-Grade Network Address Translation (CG-NAT)? Look no further than Zerotier!
+What is Zerotier? Zerotier is a software-based network overlay that allows you to connect devices, services, and apps seamlessly, regardless of their physical location. With Zerotier, you can bypass the limitations of CG-NAT and enjoy unrestricted access to the internet.
+The Benefits of Zerotier Virtual networks that span across different locations: With Zerotier, you can create virtual networks that can span across different locations.</description>
+    </item>
+    
+    <item>
+      <title>Live an Ad-Free Internet Life</title>
+      <link>https://byteventures.github.io/blogs/ad_free_life/</link>
+      <pubDate>Sun, 02 Oct 2022 07:30:56 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/ad_free_life/</guid>
+      <description>Internet Ads: Now And Then It should come at no surprise to everyone that advertisements on the internet are getting pretty ridiculous these days. They are getting out of hand. You don&amp;rsquo;t just see ads while browsing the internet, through web pages but also in almost every single app that connects to the internet. YouTube, Instagram, Facebook, Reddit to name a few.
+Now we get it, Advertisements are the main sources of income for these companies, but that truly doesn&amp;rsquo;t justify the amount of advertisements that are thrown at users these days.</description>
+    </item>
+    
+    <item>
+      <title>Pi-hole &#43; OpenDNS</title>
+      <link>https://byteventures.github.io/blogs/pihole_open_dns/</link>
+      <pubDate>Thu, 08 Sep 2022 19:00:01 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/pihole_open_dns/</guid>
+      <description>What is Pi-hole ? And It&amp;rsquo;s Uses In simple terms, Pi hole is an application that can be installed on linux that acts as a custom DNS server. It can be used to block advertisements and unwanted websites while browsing through the internet. Pi-hole can do a lot more than just this. If needed it can also act as a DHCP server for your network and much more.
+How Does It Work ?</description>
+    </item>
+    
+    <item>
+      <title>Unlocking Huawei B310s-927 &#43; OVPN</title>
+      <link>https://byteventures.github.io/blogs/huawei_b310s-927/</link>
+      <pubDate>Sun, 14 Aug 2022 20:56:23 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/huawei_b310s-927/</guid>
+      <description>What Does Unlocking Mean ? Here, unlocking means to get access to features that were locked (restricted) by the provider.In this case the provider is the ISP and not the manufacturer (Huawei).
+Why Is Unlocking Necessary ? The Huawei B310s-927 is a very famous router provided by ISPs for mobile networks. Meaning, you could use a SIM card to get data and have access to features found in traditional routers. However the ISP modifies the router to only accept their SIM cards and not others&amp;rsquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

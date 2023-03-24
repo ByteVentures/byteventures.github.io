@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=/favicon.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XHTEZQZVWE"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XHTEZQZVWE', { 'anonymize_ip': false });
+}
+</script>
+
+<meta property="og:title" content="Zerotier - Bypass CG-NAT" />
+<meta property="og:description" content="Setting up Zerotier to gain access to a home network behind CG-NAT." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteventures.github.io/blogs/zerotier/" /><meta property="article:section" content="blogs" />
+<meta property="article:published_time" content="2023-01-14T06:36:49+05:30" />
+<meta property="article:modified_time" content="2023-01-14T06:36:49+05:30" /><meta property="og:site_name" content="A Tech Trek" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zerotier - Bypass CG-NAT"/>
+<meta name="twitter:description" content="Setting up Zerotier to gain access to a home network behind CG-NAT."/>
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+
+
+
+<style>
+    :root {
+        --text-color: #343a40;
+        --text-secondary-color: #6c757d;
+        --background-color: #eaedf0;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #007bff;
+        --secondary-color: #f8f9fa;
+
+         
+        --text-color-dark: #fcfcfc;
+        --text-secondary-color-dark: #F1E0AC;
+        --background-color-dark: #313552;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #F1E0AC;
+        --secondary-color-dark: #30475E;
+    }
+    body {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        width: .5em;
+        height: .5em;
+        background-color: var(--background-color);
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px var(--background-color);
+        border-radius: 1rem;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background-color: var(--secondary-color);
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+<meta name="description" content="Setting up Zerotier to gain access to a home network behind CG-NAT.">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-5/all-5.15.4.js"></script>
+
+  <title>
+Zerotier - Bypass CG-NAT | Byte Ventures
+
+  </title>
+</head>
+
+<body class="light">
+  
+  
+<script>
+    let localStorageValue = localStorage.getItem("pref-theme");
+    let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    switch (localStorageValue) {
+        case "dark":
+            document.body.classList.add('dark');
+            break;
+        case "light":
+            document.body.classList.remove('dark');
+            break;
+        default:
+            if (mediaQuery) {
+                document.body.classList.add('dark');
+            }
+            break;
+    }
+</script>
+
+
+
+<header>
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="/favicon.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                A Tech Trek
+                
+            </a>
+
+            
+                <div>
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                        aria-label="Search" oninput="searchOnChange(event)">
+                </div>
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+                        <li class="nav-item navbar-text d-block d-md-none">
+                            <div class="nav-link">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                            </div>
+                        </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Experience
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#achievements"
+                            aria-label="achievements">
+                            Certifications
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        
+                        <div class="text-center">
+                            <button id="theme-toggle">
+                                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                </svg>
+                                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Zerotier - Bypass CG-NAT</h1>
+            <div class="text-center">
+              Mahir 
+              <small>|</small>
+              Jan 14, 2023
+
+              
+              <span id="readingTime">
+                min read
+              </span>
+              
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid" src="/posts/zerotier/zerotierimg.jpg" alt="Zerotier - Bypass CG-NAT">
+          </div>
+          
+          <article class="page-content  p-2">
+          <h1 id="zerotier-the-ultimate-solution-for-bypassing-cg-nat">Zerotier: The Ultimate Solution for Bypassing CG-NAT</h1>
+<p>Are you tired of dealing with the hassle of <a href="https://en.wikipedia.org/wiki/Carrier-grade_NAT">Carrier-Grade Network Address Translation</a> (CG-NAT)? Look no further than <a href="https://www.zerotier.com/">Zerotier</a>!</p>
+<hr>
+<h2 id="what-is-zerotier">What is Zerotier?</h2>
+<p>Zerotier is a software-based network overlay that allows you to connect devices, services, and apps seamlessly, regardless of their physical location. With Zerotier, you can bypass the limitations of CG-NAT and enjoy unrestricted access to the internet.</p>
+<h2 id="the-benefits-of-zerotier">The Benefits of Zerotier</h2>
+<p><strong>Virtual networks that span across different locations</strong>: With Zerotier, you can create virtual networks that can span across different locations. This means that you can connect devices and services from different parts of the world as if they were in the same local network. This is especially useful for businesses with remote employees or for anyone who wants to access their home network from anywhere in the world.</p>
+<p><strong>Easy to use</strong>: Zerotier is a simple, plug-and-play solution that requires no additional hardware or complicated configuration. All you need to do is install the Zerotier client on your devices, and you&rsquo;re good to go.</p>
+<h2 id="why-zerotier-and-not-something-else-">Why Zerotier and not something else ?</h2>
+<ul>
+<li>First off, it&rsquo;s <strong>FREE</strong>.</li>
+</ul>
+<p>During my reasearch, I came acccross many &lsquo;options&rsquo; / &lsquo;services&rsquo; to bypass CG-NAT. One of them was <strong>Cloudflare&rsquo;s Zero Tunnel</strong>. Although very convenient if set up right, it posed a big problem and that was that it was impossible to stream content from services like plex outside your network.</p>
+<p>However, Zerotier seamed to fix that issue. Streaming works great. It&rsquo;s also a better option if you want to VPN into your network instead of having a tunnel open at all times. Not to mention it also doesnt require a credit card to register even though both services are free.</p>
+<hr>
+<h1 id="zerotier-setup">Zerotier Setup</h1>
+<h2 id="general-guidelines-to-set-up-zerotier">General Guidelines to set up Zerotier</h2>
+<ol>
+<li>Sign up for a free account on the Zerotier website at <a href="https://my.zerotier.com">their website</a></li>
+</ol>
+<p>&nbsp;</p>
+<ol start="2">
+<li>Once you have created an account and logged in, click on the <strong>&ldquo;Networks&rdquo;</strong> tab, then click on the &ldquo;Create a Network&rdquo; button.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="3">
+<li>Give your network a name, and then click on the <strong>&ldquo;Create&rdquo;</strong> button.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="4">
+<li>Once your network is created, click on the <strong>&ldquo;Members&rdquo;</strong> tab, and then click on the <strong>&ldquo;Add
+Members&rdquo;</strong> button. Here, you can add the devices that you want to be part of the network. You can add members by their Zerotier ID or by their device&rsquo;s IP address.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="5">
+<li>Download and install the <strong>Zerotier client</strong> on all the devices that you want to add to the network.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="6">
+<li>Once the client is installed, open it and enter your Zerotier account&rsquo;s authtoken.</li>
+<li>Join the network by clicking on the <strong>&quot;+&quot;</strong> button on the network you want to join, or by entering the network&rsquo;s ID.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="8">
+<li>Once the device is connected to the network, you should be able to see it in the &ldquo;Members&rdquo; tab.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="9">
+<li>Repeat steps 5-8 for all devices that you want to add to the network.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="10">
+<li>Once all the devices are connected to the network, you should be able to communicate between them as if they were on the same local network.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="11">
+<li>Please note that these steps are a general guideline, the exact steps may vary slightly depending on the device and operating system you&rsquo;re using.</li>
+</ol>
+<h2 id="installing-zerotier-on-linux-using-terminal">Installing Zerotier on Linux (Using Terminal)</h2>
+<p>Run the following commands in a Terminal window.</p>
+<pre tabindex="0"><code>sudo apt install gnupg apt-transport-https
+</code></pre><pre tabindex="0"><code>curl -s https://install.zerotier.com | sudo bash
+</code></pre><p>To join a network use the following command:</p>
+<pre tabindex="0"><code>sudo zerotier-cli join Your Network ID
+</code></pre><p>Your linux machine will be assigned an IP from the subnet you set during the Zerotier network setup process. You can now access all your services using respective IP and ports.</p>
+<hr>
+<h1 id="conclusion">Conclusion</h1>
+<p>So why deal with the frustration of CG-NAT when you can use Zerotier to bypass it? Give it a try, and see the difference it can make in your online experience. With Zerotier, the world is your network!</p>
+<hr>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-zerotier">What is Zerotier?</a></li>
+    <li><a href="#the-benefits-of-zerotier">The Benefits of Zerotier</a></li>
+    <li><a href="#why-zerotier-and-not-something-else-">Why Zerotier and not something else ?</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#general-guidelines-to-set-up-zerotier">General Guidelines to set up Zerotier</a></li>
+    <li><a href="#installing-zerotier-on-linux-using-terminal">Installing Zerotier on Linux (Using Terminal)</a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/home-server" target="_blank">Home Server</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/ubuntu-server" target="_blank">Ubuntu Server</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/network" target="_blank">Network</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/cg-nat" target="_blank">CG-NAT</a></li>
+              
+              <li class="list-inline-item"><a href="https://byteventures.github.io/tags/firewall" target="_blank">Firewall</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Zerotier%20-%20Bypass%20CG-NAT&url=https%3a%2f%2fbyteventures.github.io%2fblogs%2fzerotier%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Zerotier%20-%20Bypass%20CG-NAT: https%3a%2f%2fbyteventures.github.io%2fblogs%2fzerotier%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href='mailto:?subject=Zerotier%20-%20Bypass%20CG-NAT&amp;body=Check%20out%20this%20site https%3a%2f%2fbyteventures.github.io%2fblogs%2fzerotier%2f'>
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+
+<div class="progress">
+  <div id="scroll-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<Script src="/js/scrollProgressBar.js"></script>
+
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+
+
+<script src="/js/readingTime.js"></script>
+
+
+
+  </div><footer>
+    <div class="container py-3" id="recent-posts">
+    
+    
+    
+    
+    <div class="h3 text-center text-secondary py-3">
+        Recent Posts
+    </div>
+    <div class="row justify-content-center">
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/mi3c_padavan/">
+                        <img src="/posts/mi3c_padavan/3c.webp" class="card-img-top" alt="Padavan Firmware for Mi 3C Router">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/mi3c_padavan/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Padavan Firmware for Mi 3C Router">Padavan Firmware for Mi …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>What is Padavan ? Padavan firmware is a custom firmware for wireless routers. It is based on the open-source firmware of Asuswrt, which is the firmware developed by Asus for their routers. Padavan firmware is compatible with a wide range of routers and provides many advanced features, such as …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jan 16, 2023</span>
+                    <a href="/blogs/mi3c_padavan/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/zerotier/">
+                        <img src="/posts/zerotier/zerotierimg.jpg" class="card-img-top" alt="Zerotier - Bypass CG-NAT">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/zerotier/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Zerotier - Bypass CG-NAT">Zerotier - Bypass CG-NAT</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Zerotier: The Ultimate Solution for Bypassing CG-NAT Are you tired of dealing with the hassle of Carrier-Grade Network Address Translation (CG-NAT)? Look no further than Zerotier!
+What is Zerotier? Zerotier is a software-based network overlay that allows you to connect devices, services, and apps …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jan 14, 2023</span>
+                    <a href="/blogs/zerotier/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/ad_free_life/">
+                        <img src="/posts/adfreelife/noads.jpg" class="card-img-top" alt="Live an Ad-Free Internet Life">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/ad_free_life/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Live an Ad-Free Internet Life">Live an Ad-Free Internet …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Internet Ads: Now And Then It should come at no surprise to everyone that advertisements on the internet are getting pretty ridiculous these days. They are getting out of hand. You don&rsquo;t just see ads while browsing the internet, through web pages but also in almost every single app that …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Oct 2, 2022</span>
+                    <a href="/blogs/ad_free_life/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div><div class="text-center pt-2">
+    
+
+    
+
+    
+
+    
+    <a href="https://www.instagram.com/mahir_m01/" aria-label="instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+            <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899"
+                gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#fd5" />
+                <stop offset=".328" stop-color="#ff543f" />
+                <stop offset=".348" stop-color="#fc5245" />
+                <stop offset=".504" stop-color="#e64771" />
+                <stop offset=".643" stop-color="#d53e91" />
+                <stop offset=".761" stop-color="#cc39a4" />
+                <stop offset=".841" stop-color="#c837ab" />
+            </radialGradient>
+            <path fill="url(#yOrnnhliCrdS2gy~4tD8ma)"
+                d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+            <radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813"
+                gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#4168c9" />
+                <stop offset=".999" stop-color="#4168c9" stop-opacity="0" />
+            </radialGradient>
+            <path fill="url(#yOrnnhliCrdS2gy~4tD8mb)"
+                d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+            <path fill="#fff"
+                d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z" />
+            <circle cx="31.5" cy="16.5" r="1.5" fill="#fff" />
+            <path fill="#fff"
+                d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z" />
+        </svg>
+    </a>
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="pb-2">
+                <a href="https://byteventures.github.io/" title="Byte Ventures">
+                    <img alt="Footer logo" src="/favicon.png"
+                        height="40px" width="40px">
+                </a>
+            </div>
+            &copy; 2023  All rights reserved
+        </div>
+    </div>
+</div></footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+</script>
+
+
+    <script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

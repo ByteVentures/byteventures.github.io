@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Raspberry Pi on Byte Ventures</title>
+    <link>https://byteventures.github.io/tags/raspberry-pi/</link>
+    <description>Recent content in Raspberry Pi on Byte Ventures</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Sep 2022 19:00:01 +0530</lastBuildDate><atom:link href="https://byteventures.github.io/tags/raspberry-pi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pi-hole &#43; OpenDNS</title>
+      <link>https://byteventures.github.io/blogs/pihole_open_dns/</link>
+      <pubDate>Thu, 08 Sep 2022 19:00:01 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/pihole_open_dns/</guid>
+      <description>What is Pi-hole ? And It&amp;rsquo;s Uses In simple terms, Pi hole is an application that can be installed on linux that acts as a custom DNS server. It can be used to block advertisements and unwanted websites while browsing through the internet. Pi-hole can do a lot more than just this. If needed it can also act as a DHCP server for your network and much more.
+How Does It Work ?</description>
+    </item>
+    
+  </channel>
+</rss>

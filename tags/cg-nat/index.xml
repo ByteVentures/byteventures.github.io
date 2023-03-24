@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CG-NAT on Byte Ventures</title>
+    <link>https://byteventures.github.io/tags/cg-nat/</link>
+    <description>Recent content in CG-NAT on Byte Ventures</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 14 Jan 2023 06:36:49 +0530</lastBuildDate><atom:link href="https://byteventures.github.io/tags/cg-nat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zerotier - Bypass CG-NAT</title>
+      <link>https://byteventures.github.io/blogs/zerotier/</link>
+      <pubDate>Sat, 14 Jan 2023 06:36:49 +0530</pubDate>
+      
+      <guid>https://byteventures.github.io/blogs/zerotier/</guid>
+      <description>Zerotier: The Ultimate Solution for Bypassing CG-NAT Are you tired of dealing with the hassle of Carrier-Grade Network Address Translation (CG-NAT)? Look no further than Zerotier!
+What is Zerotier? Zerotier is a software-based network overlay that allows you to connect devices, services, and apps seamlessly, regardless of their physical location. With Zerotier, you can bypass the limitations of CG-NAT and enjoy unrestricted access to the internet.
+The Benefits of Zerotier Virtual networks that span across different locations: With Zerotier, you can create virtual networks that can span across different locations.</description>
+    </item>
+    
+  </channel>
+</rss>
